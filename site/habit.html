@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05 · Keep the Habit — The AI Workflow Evals Handbook</title>
+<meta name="description" content="The weekly ritual, a light maintenance calendar, sticking tactics, and the honest limits of the system — when to graduate to automation.">
+<style>
+:root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #faf6ef; color: #2b2622;
+    font-family: ui-serif, Georgia, "Times New Roman", serif;
+    line-height: 1.65; font-size: 17px;
+  }
+  header.site { background: #233b3a; color: #f6f1e7; padding: 2.4rem 1rem 2rem; }
+  header.site .inner { max-width: 780px; margin: 0 auto; }
+  header.site .kicker { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: #9fc5b8; }
+  header.site h1 { margin: .5rem 0 .35rem; font-size: clamp(1.7rem, 5vw, 2.6rem); line-height: 1.15; font-weight: 700; }
+  header.site p.sub { margin: 0; font-size: 1.06rem; color: #d9e4dd; font-style: italic; }
+  nav.chapters { background: #1b2f2e; padding: .65rem 1rem; position: sticky; top: 0; z-index: 5; box-shadow: 0 1px 6px rgba(20,30,28,.25); }
+  nav.chapters .inner { max-width: 780px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: .4rem; }
+  nav.chapters a { color: #cfe0d8; text-decoration: none; font-family: ui-monospace, Menlo, monospace; font-size: .78rem; padding: .32rem .7rem; border-radius: 999px; border: 1px solid #40595a; }
+  nav.chapters a:hover { background: #2c4a48; color: #fff; }
+  nav.chapters a.here { background: #c96f37; border-color: #c96f37; color: #fff; font-weight: 700; }
+  main { max-width: 780px; margin: 0 auto; padding: 2.2rem 1rem 3rem; }
+  h2 { font-size: 1.45rem; margin: 2.2rem 0 .6rem; color: #1f4f46; border-bottom: 2px solid #e4d9c6; padding-bottom: .25rem; }
+  h3 { font-size: 1.1rem; margin: 1.6rem 0 .4rem; color: #8a4a22; }
+  p { margin: .7rem 0; }
+  .lede { font-size: 1.12rem; color: #4a4238; }
+  strong { color: #173b34; }
+  a { color: #b4541f; }
+  code, .mono { font-family: ui-monospace, Menlo, monospace; font-size: .88em; background: #f0e8d8; padding: .1em .35em; border-radius: 4px; }
+  blockquote { margin: 1.2rem 0; padding: .8rem 1.1rem; background: #fdf2e3; border-left: 4px solid #c96f37; border-radius: 0 8px 8px 0; font-style: italic; }
+  table { border-collapse: collapse; width: 100%; margin: 1.1rem 0; font-size: .95rem; }
+  th { background: #233b3a; color: #f6f1e7; text-align: left; font-family: ui-monospace, Menlo, monospace; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; }
+  th, td { padding: .55rem .7rem; border: 1px solid #e0d5c0; vertical-align: top; }
+  tr:nth-child(even) td { background: #f5eee0; }
+  .card { background: #fff; border: 1px solid #e6dcc9; border-radius: 12px; padding: 1.4rem 1.5rem; margin: 1.4rem 0; box-shadow: 0 2px 10px rgba(120, 90, 40, .06); }
+  .card h3 { margin-top: 0; }
+  ol, ul { padding-left: 1.4rem; }
+  li { margin: .35rem 0; }
+  .tally { font-family: ui-monospace, Menlo, monospace; font-size: .95rem; background: #1b2f2e; color: #d9e4dd; border-radius: 8px; padding: 1rem 1.2rem; margin: 1.2rem 0; white-space: pre-wrap; line-height: 1.55; }
+  .tally b, .tally .em { color: #ffb473; font-weight: 700; }
+  .tally code { background: none; color: #ffd9b8; padding: 0; }
+  .stamp { display: inline-block; font-family: ui-monospace, Menlo, monospace; font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; color: #8a4a22; border: 1px dashed #d9a272; border-radius: 6px; padding: .25rem .6rem; margin-bottom: 1rem; }
+  footer.site { max-width: 780px; margin: 0 auto; padding: 2rem 1rem 3.5rem; color: #7d7264; font-size: .86rem; border-top: 1px solid #e6dcc9; }
+  footer.site a { color: #a14a17; }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="inner">
+    <div class="kicker">Chapter 05 · The stubborn part</div>
+    <h1>Keep the habit.</h1>
+    <p class="sub">Everything before this chapter is clever. This chapter is stubborn.</p>
+  </div>
+</header>
+
+<nav class="chapters"><div class="inner">
+<a href="index.html">Start here</a>
+<a href="canary-quiz.html">01 · Canary quiz</a>
+<a href="rubric.html">02 · Rubric</a>
+<a href="regressions.html">03 · Regressions</a>
+<a href="good-enough.html">04 · Good enough</a>
+<a class="here" href="habit.html">05 · Habit</a>
+<a href="templates.html">Templates</a>
+</div></nav>
+
+<main>
+<span class="stamp">The canary only protects you if somebody looks at it, weekly</span>
+
+<p class="lede">The ritual runs about fifteen to twenty minutes:</p>
+
+<div class="tally">1. Rerun the quiz — all ten, in order, no skipping, no "restart to be fair".
+2. Grade in one sitting, fresh eyes, before reading anything about old runs.
+3. Log it: date and setup version in the header, scorecard kept forever.
+4. Glance back two runs: the total, plus any question hit twice. Done.</div>
+
+<p>Compare only when something changed (chapter 03); decide only when the comparison is done (chapter 04). Weekly is about habit — changing weeks are when the habit pays for itself.</p>
+
+<h2>A light maintenance calendar</h2>
+<table>
+  <tr><th>Interval</th><th>Task</th><th>Time</th></tr>
+  <tr><td>Weekly</td><td>Rerun + grade + log</td><td>15–20 min</td></tr>
+  <tr><td>Monthly</td><td>Skim the notes since last month; look for repeated complaints</td><td>10 min</td></tr>
+  <tr><td>Quarterly, or after big changes</td><td>Retire stale questions, add harder ones, re-pin acceptance bars</td><td>30 min</td></tr>
+  <tr><td>Almost never</td><td>Rewrite the whole quiz from scratch</td><td>Only if your actual usage changed wholesale</td></tr>
+</table>
+
+<h2>Making it stick</h2>
+<ul>
+  <li><strong>Anchor it to something that already happens.</strong> Sunday coffee, Monday setup check, month-end — attach new habits to old ones.</li>
+  <li><strong>Keep the question file where you can't forget it.</strong> Pinned note, starred file, the folder you open to start your week. The friction is remembering to begin, not the grading.</li>
+  <li><strong>Use the pre-committed thresholds.</strong> When the scorecard is filled, the verdict is a lookup, not a debate — that's why chapter 04's index card exists.</li>
+  <li><strong>Accept "noisy runs."</strong> Graded tired, interrupted, whatever — log it anyway with a note. A noisy logged run beats a skipped one, always.</li>
+  <li><strong>Two misses and a rescue plan.</strong> Missed two weeks? No guilt spiral: run the quiz once, note “back after a break — treat last logged run as OLD, this as NEW,” and see what drifted during the silence. The system is built to forgive gaps; the only unforgivable act is letting a missed week end the habit.</li>
+</ul>
+
+<h2>Honest limits — and when to go deeper</h2>
+<ul>
+  <li><strong>Ten questions is a sample, not a survey.</strong> You're detecting gross regressions, not subtle ones. When a failure mode keeps squeaking into your notes, add a question about it — the system grows with you.</li>
+  <li><strong>Human grading scales badly.</strong> Past two or three scorecards a week it tires and wobbles. That's the point to graduate to automation: my separate project <code>prompt-regression-cli</code> runs exactly this rerun-and-compare loop for you, using these same scorecards offline.</li>
+  <li><strong>This book teaches judgment, not statistics.</strong> When you genuinely need “how much worse” in a rigorous sense — model choices, stakeholder documentation — you'll want proper eval tooling and bigger question sets. You'll be well-prepared, because you already know what the numbers are <em>for</em>.</li>
+</ul>
+
+<h2>The end (which is really the start)</h2>
+<p>Ten fixed questions, a three-level rubric, a comparison ritual, a pre-agreed bar. Four small habits, thirty minutes a week, that turn “I think it's fine?” into “15 last week, 16 this week, nothing red-lined — go.”</p>
+<blockquote>The coal miner's canary never made the mines safer by being a sophisticated instrument. It made them safer by being there, by being sensitive, and by being looked at. Yours is the same. Good luck — and score honestly. · Dylan</blockquote>
+</main>
+
+<footer class="site">
+  <p>This manual is published by <strong>Asdale Dynamics, LLC</strong> — Dylan Asdale is a registered nurse turned AI author; the LLC publishes beginner-friendly AI education, books, guides, and practical tools (local-first, no secrets, no personal data).</p>
+  <p>Education about AI tooling only — not professional, medical, or legal advice. MIT licensed: Copyright (c) 2026 Asdale Dynamics, LLC.</p>
+</footer>
+
+</body>
+</html>

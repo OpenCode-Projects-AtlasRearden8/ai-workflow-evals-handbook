@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Templates — The AI Workflow Evals Handbook</title>
+<meta name="description" content="Copy-paste templates: the ten-question canary quiz, the 0/1/2 rubric, the gradeable scorecard, and a worked example with two filled scorecards.">
+<style>
+:root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #faf6ef; color: #2b2622;
+    font-family: ui-serif, Georgia, "Times New Roman", serif;
+    line-height: 1.65; font-size: 17px;
+  }
+  header.site { background: #233b3a; color: #f6f1e7; padding: 2.4rem 1rem 2rem; }
+  header.site .inner { max-width: 780px; margin: 0 auto; }
+  header.site .kicker { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: #9fc5b8; }
+  header.site h1 { margin: .5rem 0 .35rem; font-size: clamp(1.7rem, 5vw, 2.6rem); line-height: 1.15; font-weight: 700; }
+  header.site p.sub { margin: 0; font-size: 1.06rem; color: #d9e4dd; font-style: italic; }
+  nav.chapters { background: #1b2f2e; padding: .65rem 1rem; position: sticky; top: 0; z-index: 5; box-shadow: 0 1px 6px rgba(20,30,28,.25); }
+  nav.chapters .inner { max-width: 780px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: .4rem; }
+  nav.chapters a { color: #cfe0d8; text-decoration: none; font-family: ui-monospace, Menlo, monospace; font-size: .78rem; padding: .32rem .7rem; border-radius: 999px; border: 1px solid #40595a; }
+  nav.chapters a:hover { background: #2c4a48; color: #fff; }
+  nav.chapters a.here { background: #c96f37; border-color: #c96f37; color: #fff; font-weight: 700; }
+  main { max-width: 780px; margin: 0 auto; padding: 2.2rem 1rem 3rem; }
+  h2 { font-size: 1.45rem; margin: 2.2rem 0 .6rem; color: #1f4f46; border-bottom: 2px solid #e4d9c6; padding-bottom: .25rem; }
+  h3 { font-size: 1.1rem; margin: 1.6rem 0 .4rem; color: #8a4a22; }
+  p { margin: .7rem 0; }
+  .lede { font-size: 1.12rem; color: #4a4238; }
+  strong { color: #173b34; }
+  a { color: #b4541f; }
+  code, .mono { font-family: ui-monospace, Menlo, monospace; font-size: .88em; background: #f0e8d8; padding: .1em .35em; border-radius: 4px; }
+  blockquote { margin: 1.2rem 0; padding: .8rem 1.1rem; background: #fdf2e3; border-left: 4px solid #c96f37; border-radius: 0 8px 8px 0; font-style: italic; }
+  table { border-collapse: collapse; width: 100%; margin: 1.1rem 0; font-size: .95rem; }
+  th { background: #233b3a; color: #f6f1e7; text-align: left; font-family: ui-monospace, Menlo, monospace; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; }
+  th, td { padding: .55rem .7rem; border: 1px solid #e0d5c0; vertical-align: top; }
+  tr:nth-child(even) td { background: #f5eee0; }
+  .card { background: #fff; border: 1px solid #e6dcc9; border-radius: 12px; padding: 1.4rem 1.5rem; margin: 1.4rem 0; box-shadow: 0 2px 10px rgba(120, 90, 40, .06); }
+  .card h3 { margin-top: 0; }
+  ol, ul { padding-left: 1.4rem; }
+  li { margin: .35rem 0; }
+  .tally { font-family: ui-monospace, Menlo, monospace; font-size: .95rem; background: #1b2f2e; color: #d9e4dd; border-radius: 8px; padding: 1rem 1.2rem; margin: 1.2rem 0; white-space: pre-wrap; line-height: 1.55; }
+  .tally b, .tally .em { color: #ffb473; font-weight: 700; }
+  .tally code { background: none; color: #ffd9b8; padding: 0; }
+  .stamp { display: inline-block; font-family: ui-monospace, Menlo, monospace; font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; color: #8a4a22; border: 1px dashed #d9a272; border-radius: 6px; padding: .25rem .6rem; margin-bottom: 1rem; }
+  footer.site { max-width: 780px; margin: 0 auto; padding: 2rem 1rem 3.5rem; color: #7d7264; font-size: .86rem; border-top: 1px solid #e6dcc9; }
+  footer.site a { color: #a14a17; }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="inner">
+    <div class="kicker">Appendix · Copy, fill, repeat</div>
+    <h1>Templates.</h1>
+    <p class="sub">Everything here is yours to copy. Fill once, then keep it stable — that's what makes week-over-week scores mean something.</p>
+  </div>
+</header>
+
+<nav class="chapters"><div class="inner">
+<a href="index.html">Start here</a>
+<a href="canary-quiz.html">01 · Canary quiz</a>
+<a href="rubric.html">02 · Rubric</a>
+<a href="regressions.html">03 · Regressions</a>
+<a href="good-enough.html">04 · Good enough</a>
+<a href="habit.html">05 · Habit</a>
+<a class="here" href="templates.html">Templates</a>
+</div></nav>
+
+<main>
+<span class="stamp">All templates also ship as Markdown files under docs/templates/ in the repository</span>
+
+<div class="card">
+  <h3>1 · The canary quiz <span class="mono">(docs/templates/canary-quiz-template.md)</span></h3>
+  <p>Setup name + creation date, ten numbered questions (6 workhorse, 1 red line, 1 weak spot, 1 messy phrasing, 1 new frontier), one-sentence acceptance bars under every task question, and a stability note: change questions on purpose, never casually.</p>
+  <div class="tally">Setup under test: &lt;name&gt; · Quiz created: &lt;date&gt;
+Q1–Q6  workhorses (your top 3 usage categories, ~2 each)
+Q7     RED LINE — the task where a mistake would cost you
+Q8     WEAK SPOT — the thing it usually fumbles
+Q9     MESSY — phrased the way you actually type (typos allowed)
+Q10    NEW FRONTIER — what you want to trust it for but don't yet</div>
+</div>
+
+<div class="card">
+  <h3>2 · The rubric <span class="mono">(docs/templates/rubric-template.md)</span></h3>
+  <p>The 0/1/2 scale, your acceptance bars, the mechanical grading order, boundary-question rules, and your named thresholds (ship bar, pilot band, red-line questions).</p>
+  <div class="tally">0 = wrong / confidently wrong     1 = right idea, real flaws     2 = trivial fixes only
+Wrong anywhere that matters → 0.  Trivial fixes only → 2.  Between → 1.  Torn → 1.
+Boundary: "I don't know" = 2 · hedges-then-guesses = 1 · invents = 0.</div>
+</div>
+
+<div class="card">
+  <h3>3 · The scorecard <span class="mono">(docs/templates/scorecard-template.md)</span></h3>
+  <p>One copy per run, kept forever. Header carries setup name, date, version, ship bar, and red-line questions; the body is ten lines a machine can read too:</p>
+  <div class="tally">- Q1 · Score: 2 · Notes: reply-ready as-is.
+- Q7 (red line) · Score: 2 · Notes: all clauses matched.
+...
+- Q10 · Score: 1 · Notes: honest refusal, not yet usable.
+Verdict: NEW vs OLD: 15/20 → 16/20 · Q4 dropped 2→1 · red-line OK · green-line it.</div>
+</div>
+
+<div class="card">
+  <h3>4 · The worked example <span class="mono">(example-canary-quiz.md, example-scorecard-1.md, example-scorecard-2.md)</span></h3>
+  <p>A realistic filled set from a small-business owner: ten questions mirroring her actual usage, two graded runs (baseline 15/20 pilot, post-update 16/20 ship), and the one-line verdicts in the margins. Copy the <em>shape</em>, not the content.</p>
+</div>
+
+<div class="card">
+  <h3>5 · The offline grader <span class="mono">(scripts/grade.py)</span></h3>
+  <p>Optional helper — plain Python, no dependencies, runs fully offline:</p>
+  <div class="tally">python3 scripts/grade.py scorecard.md          # total, verdict, red-line check
+python3 scripts/grade.py old.md new.md         # totals, cliffs (2→0), drops, improvements</div>
+  <p>It reads the scorecard format above — notes included — and applies the ship bar and red-line veto of chapter 04 for you. It grades the arithmetic; <em>you</em> still grade the answers.</p>
+</div>
+
+<p><em>You keep the habit; the templates keep the consistency. That's the division of labor.</em></p>
+</main>
+
+<footer class="site">
+  <p>This manual is published by <strong>Asdale Dynamics, LLC</strong> — Dylan Asdale is a registered nurse turned AI author; the LLC publishes beginner-friendly AI education, books, guides, and practical tools (local-first, no secrets, no personal data).</p>
+  <p>Education about AI tooling only — not professional, medical, or legal advice. MIT licensed: Copyright (c) 2026 Asdale Dynamics, LLC.</p>
+</footer>
+
+</body>
+</html>

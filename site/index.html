@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The AI Workflow Evals Handbook — Test your AI setups before you trust them</title>
+<meta name="description" content="A beginner manual for testing your own AI setups: a ten-question canary quiz, a simple rubric, regression checks, and when good is good enough. By Dylan Asdale. Published by Asdale Dynamics, LLC.">
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #faf6ef; color: #2b2622;
+    font-family: ui-serif, Georgia, "Times New Roman", serif;
+    line-height: 1.65; font-size: 17px;
+  }
+  header.site {
+    background: #233b3a; color: #f6f1e7; padding: 2.4rem 1rem 2rem;
+  }
+  header.site .inner { max-width: 780px; margin: 0 auto; }
+  header.site .kicker { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: #9fc5b8; }
+  header.site h1 { margin: .5rem 0 .35rem; font-size: clamp(1.7rem, 5vw, 2.6rem); line-height: 1.15; font-weight: 700; }
+  header.site p.sub { margin: 0; font-size: 1.06rem; color: #d9e4dd; font-style: italic; }
+  nav.chapters {
+    background: #1b2f2e; padding: .65rem 1rem; position: sticky; top: 0; z-index: 5;
+    box-shadow: 0 1px 6px rgba(20,30,28,.25);
+  }
+  nav.chapters .inner { max-width: 780px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: .4rem; }
+  nav.chapters a {
+    color: #cfe0d8; text-decoration: none; font-family: ui-monospace, Menlo, monospace;
+    font-size: .78rem; padding: .32rem .7rem; border-radius: 999px; border: 1px solid #40595a;
+  }
+  nav.chapters a:hover { background: #2c4a48; color: #fff; }
+  nav.chapters a.here { background: #c96f37; border-color: #c96f37; color: #fff; font-weight: 700; }
+  main { max-width: 780px; margin: 0 auto; padding: 2.2rem 1rem 3rem; }
+  h2 { font-size: 1.45rem; margin: 2.2rem 0 .6rem; color: #1f4f46; border-bottom: 2px solid #e4d9c6; padding-bottom: .25rem; }
+  h3 { font-size: 1.1rem; margin: 1.6rem 0 .4rem; color: #8a4a22; }
+  p { margin: .7rem 0; }
+  .lede { font-size: 1.12rem; color: #4a4238; }
+  strong { color: #173b34; }
+  a { color: #b4541f; }
+  code, .mono { font-family: ui-monospace, Menlo, monospace; font-size: .88em; background: #f0e8d8; padding: .1em .35em; border-radius: 4px; }
+  blockquote {
+    margin: 1.2rem 0; padding: .8rem 1.1rem; background: #fdf2e3; border-left: 4px solid #c96f37;
+    border-radius: 0 8px 8px 0; font-style: italic;
+  }
+  table { border-collapse: collapse; width: 100%; margin: 1.1rem 0; font-size: .95rem; }
+  th { background: #233b3a; color: #f6f1e7; text-align: left; font-family: ui-monospace, Menlo, monospace; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; }
+  th, td { padding: .55rem .7rem; border: 1px solid #e0d5c0; vertical-align: top; }
+  tr:nth-child(even) td { background: #f5eee0; }
+  .card {
+    background: #fff; border: 1px solid #e6dcc9; border-radius: 12px; padding: 1.4rem 1.5rem; margin: 1.4rem 0;
+    box-shadow: 0 2px 10px rgba(120, 90, 40, .06);
+  }
+  .card h3 { margin-top: 0; }
+  ol, ul { padding-left: 1.4rem; }
+  li { margin: .35rem 0; }
+  .tally {
+    font-family: ui-monospace, Menlo, monospace; font-size: .95rem;
+    background: #1b2f2e; color: #d9e4dd; border-radius: 8px; padding: 1rem 1.2rem; margin: 1.2rem 0;
+    white-space: pre-wrap; line-height: 1.55;
+  }
+  .tally b, .tally .em { color: #ffb473; font-weight: 700; }
+  .stamp {
+    display: inline-block; font-family: ui-monospace, Menlo, monospace; font-size: .74rem;
+    letter-spacing: .12em; text-transform: uppercase; color: #8a4a22;
+    border: 1px dashed #d9a272; border-radius: 6px; padding: .25rem .6rem; margin-bottom: 1rem;
+  }
+  footer.site { max-width: 780px; margin: 0 auto; padding: 2rem 1rem 3.5rem; color: #7d7264; font-size: .86rem; border-top: 1px solid #e6dcc9; }
+  footer.site a { color: #a14a17; }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="inner">
+    <div class="kicker">The AI Workflow Evals Handbook</div>
+    <h1>Test your AI setups before you trust them.</h1>
+    <p class="sub">A beginner manual with repeatable testing habits — by Dylan Asdale, published by Asdale Dynamics, LLC.</p>
+  </div>
+</header>
+
+<nav class="chapters"><div class="inner">
+  <a class="here" href="index.html">Start here</a>
+  <a href="canary-quiz.html">01 · Canary quiz</a>
+  <a href="rubric.html">02 · Rubric</a>
+  <a href="regressions.html">03 · Regressions</a>
+  <a href="good-enough.html">04 · Good enough</a>
+  <a href="habit.html">05 · Habit</a>
+  <a href="templates.html">Templates</a>
+</div></nav>
+
+<main>
+  <p class="lede">Here's a mistake almost everybody makes with AI tools. They try a new setup once, it does something impressive, and they quietly decide it works. Then, months and several updates later, it's quietly failing half the time and nobody noticed — because nobody ever wrote down what "working" looked like in the first place.</p>
+
+  <p>This handbook fixes that, with a set of habits you can run with a text editor and twenty minutes a week. No accounts, no API keys, no cloud calls. Everything runs locally; you can even do it on paper.</p>
+
+  <blockquote>The whole book in one line: <strong>a score you didn't write down last week is a regression you can't spot this week.</strong> So — ten questions, one simple rubric, a short comparison ritual, and a pre-agreed bar. Write it down.</blockquote>
+
+  <div class="card">
+    <h3>The canary idea</h3>
+    <p>In old coal mines, miners brought a canary. As long as the bird seemed okay, the air was probably okay. A canary quiz is the same for your AI setup: <strong>not</strong> a scientific benchmark, and <strong>not</strong> a competition against anyone else's setup. It measures <em>your</em> setup against <em>itself</em>, over time. If the canary is fine, you're fine. If it drops off the perch, you know to get out — before a real task does.</p>
+    <p>Ten questions is the sweet spot. Fewer than ten and one lucky answer can fool you; more than ten and grading becomes a chore, and a chore you skip is a canary you don't have.</p>
+  </div>
+
+  <h2>The four moves</h2>
+  <table>
+    <tr><th>Move</th><th>What you do</th><th>Chapter</th></tr>
+    <tr><td><strong>1. Build the quiz</strong></td><td>Ten permanent questions that mirror how you <em>actually</em> use the tool — plus a red-line question, a known weak spot, one messy prompt, and one thing you don't yet trust it for.</td><td><a href="canary-quiz.html">01</a></td></tr>
+    <tr><td><strong>2. Score with a rubric</strong></td><td>Every answer gets a 0, 1, or 2 — the same scale every time. Ten questions, so each run is out of 20.</td><td><a href="rubric.html">02</a></td></tr>
+    <tr><td><strong>3. Spot regressions</strong></td><td>Rerun the quiz when anything changes (model update, prompt tweak, workflow edit). Compare scorecards; hunt the one silent-killer pattern.</td><td><a href="regressions.html">03</a></td></tr>
+    <tr><td><strong>4. Decide</strong></td><td>A pre-agreed ship bar (default 16/20) plus a red-line veto: <em>any</em> red-line answer at 0 means don't ship, regardless of the total.</td><td><a href="good-enough.html">04</a></td></tr>
+  </table>
+  <p>Then <a href="habit.html">chapter 05</a> turns the whole thing into a fifteen-minute weekly ritual that survives busy weeks.</p>
+
+  <h2>What this isn't</h2>
+  <ul>
+    <li><strong>Not medical advice — ever.</strong> I'm a nurse by training, so let me be extra clear: nothing here is healthcare guidance, and no AI setup should be treated as a clinical authority. This book is education about <em>AI tooling</em>, full stop.</li>
+    <li><strong>Not a benchmark.</strong> Your only meaningful comparison is <em>your setup this week vs. last week</em>.</li>
+    <li><strong>Not automation.</strong> This handbook is deliberately tool-free. If you want automation later, my separate project <code>prompt-regression-cli</code> automates the comparison step — but learn the habit first; the habit is what makes the tool worth having. (And my <code>when-ai-gets-it-wrong-guide</code> collects the failure <em>stories</em>; this is the craft that prevents them.)</li>
+  </ul>
+
+  <h2>What you need</h2>
+  <ul>
+    <li>The AI setup you already use (chatbot, local model, coding assistant — anything).</li>
+    <li>A place to keep notes: a plain text or Markdown file, or a paper notebook.</li>
+    <li>20–30 minutes for the first round, then 15–20 minutes a week.</li>
+  </ul>
+
+  <h2>Start here</h2>
+  <div class="tally">1. Open <a style="color:#ffb473" href="canary-quiz.html">chapter 01 · the canary quiz</a>
+2. Copy a fillable template from <a style="color:#ffb473" href="templates.html">templates</a>
+3. Run the quiz once as a baseline, grade it with the <a style="color:#ffb473" href="rubric.html">0/1/2 rubric</a>
+4. Keep one scorecard per run, forever. That's the whole system.</div>
+
+  <p><em>Prefer Markdown or offline reading? This manual also lives as files under <code>docs/</code> in the repository — same words, no browser required.</em></p>
+</main>
+
+<footer class="site">
+  <p>This manual is published by <strong>Asdale Dynamics, LLC</strong> — Dylan Asdale is a registered nurse turned AI author; the LLC publishes beginner-friendly AI education, books, guides, and practical tools (local-first, no secrets, no personal data).</p>
+  <p>Education about AI tooling only — not professional, medical, or legal advice. MIT licensed: Copyright (c) 2026 Asdale Dynamics, LLC.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>04 · When Good Is Good Enough — The AI Workflow Evals Handbook</title>
+<meta name="description" content="Ship bars and vetoes: 16/20 default ship threshold, the pilot band, the red-line zero veto, the stop rule, and the three honest exceptions.">
+<style>
+:root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #faf6ef; color: #2b2622;
+    font-family: ui-serif, Georgia, "Times New Roman", serif;
+    line-height: 1.65; font-size: 17px;
+  }
+  header.site { background: #233b3a; color: #f6f1e7; padding: 2.4rem 1rem 2rem; }
+  header.site .inner { max-width: 780px; margin: 0 auto; }
+  header.site .kicker { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: #9fc5b8; }
+  header.site h1 { margin: .5rem 0 .35rem; font-size: clamp(1.7rem, 5vw, 2.6rem); line-height: 1.15; font-weight: 700; }
+  header.site p.sub { margin: 0; font-size: 1.06rem; color: #d9e4dd; font-style: italic; }
+  nav.chapters { background: #1b2f2e; padding: .65rem 1rem; position: sticky; top: 0; z-index: 5; box-shadow: 0 1px 6px rgba(20,30,28,.25); }
+  nav.chapters .inner { max-width: 780px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: .4rem; }
+  nav.chapters a { color: #cfe0d8; text-decoration: none; font-family: ui-monospace, Menlo, monospace; font-size: .78rem; padding: .32rem .7rem; border-radius: 999px; border: 1px solid #40595a; }
+  nav.chapters a:hover { background: #2c4a48; color: #fff; }
+  nav.chapters a.here { background: #c96f37; border-color: #c96f37; color: #fff; font-weight: 700; }
+  main { max-width: 780px; margin: 0 auto; padding: 2.2rem 1rem 3rem; }
+  h2 { font-size: 1.45rem; margin: 2.2rem 0 .6rem; color: #1f4f46; border-bottom: 2px solid #e4d9c6; padding-bottom: .25rem; }
+  h3 { font-size: 1.1rem; margin: 1.6rem 0 .4rem; color: #8a4a22; }
+  p { margin: .7rem 0; }
+  .lede { font-size: 1.12rem; color: #4a4238; }
+  strong { color: #173b34; }
+  a { color: #b4541f; }
+  code, .mono { font-family: ui-monospace, Menlo, monospace; font-size: .88em; background: #f0e8d8; padding: .1em .35em; border-radius: 4px; }
+  blockquote { margin: 1.2rem 0; padding: .8rem 1.1rem; background: #fdf2e3; border-left: 4px solid #c96f37; border-radius: 0 8px 8px 0; font-style: italic; }
+  table { border-collapse: collapse; width: 100%; margin: 1.1rem 0; font-size: .95rem; }
+  th { background: #233b3a; color: #f6f1e7; text-align: left; font-family: ui-monospace, Menlo, monospace; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; }
+  th, td { padding: .55rem .7rem; border: 1px solid #e0d5c0; vertical-align: top; }
+  tr:nth-child(even) td { background: #f5eee0; }
+  .card { background: #fff; border: 1px solid #e6dcc9; border-radius: 12px; padding: 1.4rem 1.5rem; margin: 1.4rem 0; box-shadow: 0 2px 10px rgba(120, 90, 40, .06); }
+  .card h3 { margin-top: 0; }
+  ol, ul { padding-left: 1.4rem; }
+  li { margin: .35rem 0; }
+  .tally { font-family: ui-monospace, Menlo, monospace; font-size: .95rem; background: #1b2f2e; color: #d9e4dd; border-radius: 8px; padding: 1rem 1.2rem; margin: 1.2rem 0; white-space: pre-wrap; line-height: 1.55; }
+  .tally b, .tally .em { color: #ffb473; font-weight: 700; }
+  .tally code { background: none; color: #ffd9b8; padding: 0; }
+  .stamp { display: inline-block; font-family: ui-monospace, Menlo, monospace; font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; color: #8a4a22; border: 1px dashed #d9a272; border-radius: 6px; padding: .25rem .6rem; margin-bottom: 1rem; }
+  footer.site { max-width: 780px; margin: 0 auto; padding: 2rem 1rem 3.5rem; color: #7d7264; font-size: .86rem; border-top: 1px solid #e6dcc9; }
+  footer.site a { color: #a14a17; }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="inner">
+    <div class="kicker">Chapter 04 · The decision</div>
+    <h1>When good is good enough.</h1>
+    <p class="sub">A pre-agreed bar, so the decision is made by calm you-in-advance — not by mood on the day.</p>
+  </div>
+</header>
+
+<nav class="chapters"><div class="inner">
+<a href="index.html">Start here</a>
+<a href="canary-quiz.html">01 · Canary quiz</a>
+<a href="rubric.html">02 · Rubric</a>
+<a href="regressions.html">03 · Regressions</a>
+<a class="here" href="good-enough.html">04 · Good enough</a>
+<a href="habit.html">05 · Habit</a>
+<a href="templates.html">Templates</a>
+</div></nav>
+
+<main>
+<span class="stamp">Good enough is a stop rule, not just a ship rule</span>
+
+<p class="lede">The score is 17/20. Ship it, or keep pushing? Decide wrong one way and you ship sloppy work; decide wrong the other way and you polish forever and never use the tool. So the decision is pre-agreed:</p>
+
+<table>
+  <tr><th>Reading</th><th>Verdict</th><th>Meaning</th></tr>
+  <tr><td><strong>16–20 / 20</strong></td><td><strong>Good enough — ship</strong></td><td>Usable for real work, with the usual “verify before it matters” habits.</td></tr>
+  <tr><td><strong>12–15 / 20</strong></td><td><strong>Pilot — supervised use</strong></td><td>Fine for drafts, notes, and experiments; anything leaving your desk gets a real check by you.</td></tr>
+  <tr><td><strong>8–11 / 20</strong></td><td><strong>Don't rely on it</strong></td><td>Keep working the setup; real tasks stay under your own control.</td></tr>
+  <tr><td><strong>0–7 / 20</strong></td><td><strong>Not usable</strong></td><td>Wrong tool, broken setup, or a quiz-and-setup mismatch worth investigating.</td></tr>
+</table>
+
+<h2>Why 16?</h2>
+<p>16/20 means the run averages a mix of 2s and 1s — you can expect a useful answer most times, and when it's off, it's off in the <em>partial</em> way, not the <em>wrong</em> way. High enough to matter, low enough to be reachable. Perfectionism around 18–20 spends effort you could spend everywhere else.</p>
+
+<h2>The veto that outranks the total</h2>
+<blockquote>A red-line or boundary question at <strong>0</strong> is an emergency <em>regardless of the total</em>. A gorgeous 19/20 with a boundary zero still means <strong>do not ship</strong>.</blockquote>
+
+<h2>Good enough is per-task, not per-model</h2>
+<p>The same setup can be 18/20 on email drafting and 6/20 on bookkeeping questions — honest verdicts differ per column. Keep a scorecard per job if one setup wears several hats. And when a task <strong>hits the bar two runs in a row, stop working the setup for that task.</strong> Go do the actual work. Ninety percent of further fiddling is anxiety wearing a lab coat.</p>
+
+<h2>The three honest exceptions</h2>
+<ol>
+  <li><strong>Bar met, trend worrying.</strong> Scores 16–17 for weeks while notes keep mentioning “rambles more now.” Still ship — but write a <em>nagging</em> margin note. That's how you catch slow drift the thresholds are too coarse to see.</li>
+  <li><strong>An update you can't refuse.</strong> Score lands just under the bar. Pre-commit the soft landing: pilot band for one week, dated retest note; still under at retest → restore a workaround instead of living under the bar indefinitely.</li>
+  <li><strong>Barely any 2s.</strong> Don't lower the bar out of frustration. Mark the task <em>pilot</em>, then fix the <strong>task input</strong> — clearer instructions, better example files, a tighter acceptance bar. The quiz tells you whether the fix worked.</li>
+</ol>
+
+<h2>The index card</h2>
+<div class="tally">1. Total at or above my ship bar?           → yes ⇒ keep going (run the red-line check)
+2. Red-line or boundary question scored 0?  → yes ⇒ STOP. Do not ship.
+3. Total in the pilot band (12–15)?         → yes ⇒ usable with supervision only.
+4. Notes trending worse across 2–3 runs?    → yes ⇒ write a "nagging" note; watch next run.
+5. At/above ship bar two runs in a row?     → yes ⇒ STOP polishing. Go use it for real.</div>
+
+<h2>Your assignment</h2>
+<div class="tally">1. Pick your ship bar (default 16/20) into your scorecard header.
+2. Name your red-line and boundary questions in that same header.
+3. Decide in writing what a pilot-band run may and may not do for you
+   (e.g. "drafts are okay; nothing goes out without me reading it").
+Next: <a style="color:#ffb473" href="habit.html">chapter 05 · keep the habit</a>.</div>
+</main>
+
+<footer class="site">
+  <p>This manual is published by <strong>Asdale Dynamics, LLC</strong> — Dylan Asdale is a registered nurse turned AI author; the LLC publishes beginner-friendly AI education, books, guides, and practical tools (local-first, no secrets, no personal data).</p>
+  <p>Education about AI tooling only — not professional, medical, or legal advice. MIT licensed: Copyright (c) 2026 Asdale Dynamics, LLC.</p>
+</footer>
+
+</body>
+</html>

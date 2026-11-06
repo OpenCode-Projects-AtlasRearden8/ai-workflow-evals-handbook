@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02 · Score With a Rubric — The AI Workflow Evals Handbook</title>
+<meta name="description" content="The 0/1/2 grading scale: fail, partial, pass. How to grade task questions honestly,迟到 boundary questions, and the three ways you'll fool yourself.">
+<style>
+:root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #faf6ef; color: #2b2622;
+    font-family: ui-serif, Georgia, "Times New Roman", serif;
+    line-height: 1.65; font-size: 17px;
+  }
+  header.site { background: #233b3a; color: #f6f1e7; padding: 2.4rem 1rem 2rem; }
+  header.site .inner { max-width: 780px; margin: 0 auto; }
+  header.site .kicker { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: #9fc5b8; }
+  header.site h1 { margin: .5rem 0 .35rem; font-size: clamp(1.7rem, 5vw, 2.6rem); line-height: 1.15; font-weight: 700; }
+  header.site p.sub { margin: 0; font-size: 1.06rem; color: #d9e4dd; font-style: italic; }
+  nav.chapters { background: #1b2f2e; padding: .65rem 1rem; position: sticky; top: 0; z-index: 5; box-shadow: 0 1px 6px rgba(20,30,28,.25); }
+  nav.chapters .inner { max-width: 780px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: .4rem; }
+  nav.chapters a { color: #cfe0d8; text-decoration: none; font-family: ui-monospace, Menlo, monospace; font-size: .78rem; padding: .32rem .7rem; border-radius: 999px; border: 1px solid #40595a; }
+  nav.chapters a:hover { background: #2c4a48; color: #fff; }
+  nav.chapters a.here { background: #c96f37; border-color: #c96f37; color: #fff; font-weight: 700; }
+  main { max-width: 780px; margin: 0 auto; padding: 2.2rem 1rem 3rem; }
+  h2 { font-size: 1.45rem; margin: 2.2rem 0 .6rem; color: #1f4f46; border-bottom: 2px solid #e4d9c6; padding-bottom: .25rem; }
+  h3 { font-size: 1.1rem; margin: 1.6rem 0 .4rem; color: #8a4a22; }
+  p { margin: .7rem 0; }
+  .lede { font-size: 1.12rem; color: #4a4238; }
+  strong { color: #173b34; }
+  a { color: #b4541f; }
+  code, .mono { font-family: ui-monospace, Menlo, monospace; font-size: .88em; background: #f0e8d8; padding: .1em .35em; border-radius: 4px; }
+  blockquote { margin: 1.2rem 0; padding: .8rem 1.1rem; background: #fdf2e3; border-left: 4px solid #c96f37; border-radius: 0 8px 8px 0; font-style: italic; }
+  table { border-collapse: collapse; width: 100%; margin: 1.1rem 0; font-size: .95rem; }
+  th { background: #233b3a; color: #f6f1e7; text-align: left; font-family: ui-monospace, Menlo, monospace; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; }
+  th, td { padding: .55rem .7rem; border: 1px solid #e0d5c0; vertical-align: top; }
+  tr:nth-child(even) td { background: #f5eee0; }
+  .card { background: #fff; border: 1px solid #e6dcc9; border-radius: 12px; padding: 1.4rem 1.5rem; margin: 1.4rem 0; box-shadow: 0 2px 10px rgba(120, 90, 40, .06); }
+  .card h3 { margin-top: 0; }
+  ol, ul { padding-left: 1.4rem; }
+  li { margin: .35rem 0; }
+  .tally { font-family: ui-monospace, Menlo, monospace; font-size: .95rem; background: #1b2f2e; color: #d9e4dd; border-radius: 8px; padding: 1rem 1.2rem; margin: 1.2rem 0; white-space: pre-wrap; line-height: 1.55; }
+  .tally b, .tally .em { color: #ffb473; font-weight: 700; }
+  .tally code { background: none; color: #ffd9b8; padding: 0; }
+  .stamp { display: inline-block; font-family: ui-monospace, Menlo, monospace; font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; color: #8a4a22; border: 1px dashed #d9a272; border-radius: 6px; padding: .25rem .6rem; margin-bottom: 1rem; }
+  footer.site { max-width: 780px; margin: 0 auto; padding: 2rem 1rem 3.5rem; color: #7d7264; font-size: .86rem; border-top: 1px solid #e6dcc9; }
+  footer.site a { color: #a14a17; }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="inner">
+    <div class="kicker">Chapter 02 · Where vibes become data</div>
+    <h1>Score with a rubric.</h1>
+    <p class="sub">A scale so simple it fits on a sticky note — plus the honest-grading habits that make it mean something.</p>
+  </div>
+</header>
+
+<nav class="chapters"><div class="inner">
+<a href="index.html">Start here</a>
+<a href="canary-quiz.html">01 · Canary quiz</a>
+<a class="here" href="rubric.html">02 · Rubric</a>
+<a href="regressions.html">03 · Regressions</a>
+<a href="good-enough.html">04 · Good enough</a>
+<a href="habit.html">05 · Habit</a>
+<a href="templates.html">Templates</a>
+</div></nav>
+
+<main>
+<span class="stamp">Ten questions × three possible grades = a run out of 20</span>
+
+<p class="lede">Every answer, every question, every week, gets exactly one of three grades:</p>
+
+<table>
+  <tr><th>Score</th><th>Name</th><th>What it means</th></tr>
+  <tr><td><strong>0</strong></td><td><strong>Fail</strong></td><td>Wrong, or <em>confidently</em> wrong, or it fails the question's specific checklist. On a boundary question, 0 = it invented an answer.</td></tr>
+  <tr><td><strong>1</strong></td><td><strong>Partial</strong></td><td>Substantially right but flawed: right idea, real problems; good draft, sloppy details; or you needed extra back-and-forth.</td></tr>
+  <tr><td><strong>2</strong></td><td><strong>Pass</strong></td><td>Acceptable in real life with only trivial fixes (a typo). It also states uncertainty where it should.</td></tr>
+</table>
+
+<p><strong>Why not a 1–10 scale?</strong> Because precision is a trap. A “7” given today and a “7” given next week describe different quality levels, and then “7 vs. 7” means nothing. Three levels force honesty: you only have to defend a decision between adjacent grades.</p>
+
+<h2>Grading order — mechanical, every time</h2>
+<div class="tally">1. Wrong anywhere it matters?        → 0.  Don't round up.
+2. Acceptable with only trivial fixes? → 2.
+3. Everything in between?              → 1.
+4. Torn between 1 and 2?               → 1.  (When torn, go lower.</div>
+<p><strong>“When torn, go lower” isn't meanness</strong> — it's consistency-with-yourself week over week, and a slightly harsh-but-stable scale always outlives a kind-but-wobbly one.</p>
+
+<h2>Task questions: write the bar first</h2>
+<p>Before your <em>first</em> run, write a one-sentence <strong>acceptance bar</strong> under every task question — what makes that a 2 <em>for you</em>:</p>
+<blockquote>Q4. <em>Draft a polite deadline-extension email to a supplier.</em><br>Bar for a 2: names the right deadline, asks clearly, I'd send it after fixing only the name.</blockquote>
+
+<h2>Boundary questions, specifically</h2>
+<ul>
+  <li>Says “I don't know” or asks for the missing fact → <strong>2</strong> (pass = behaving correctly, which here means <em>refusing to invent</em>).</li>
+  <li>Hedges, hems, and eventually guesses anyway → <strong>1</strong>.</li>
+  <li>States an invented fact with confidence → <strong>0</strong>, and underline it. This is the single most development-critical behavior in the scale for any setup used for real work.</li>
+</ul>
+
+<h2>The two-sentence note</h2>
+<p>After each question, write <strong>up to two sentences</strong> on what cost the point. That's it:</p>
+<div class="tally">Q2 · 1 — right steps, wrong cutoff date.
+Q6 · 2 — would send as-is.
+Q9 · 0 — invented a phone number on a boundary probe.</div>
+<p>These notes are the most valuable part of the whole system. Scores tell you <em>that</em> something changed; the notes tell you <em>what to fix</em> — and they're how chapter 03 tells “the setup got worse” apart from “my standards drifted.”</p>
+
+<h2>The three ways you'll fool yourself</h2>
+<ol>
+  <li><strong>Anchoring on the old score.</strong> You remember it got a 2 last week, so you lean toward 2 again. <em>Fix:</em> grade from the answer alone; check last run's card only after finishing this one.</li>
+  <li><strong>Context generosity.</strong> The AI has been helpful all week, so everything gets a 2. <em>Fix:</em> the mechanical grading order, especially “trivial fixes only.”</li>
+  <li><strong>The effort bias.</strong> You spent 40 minutes building this, so you <em>want</em> a good score. <em>Fix:</em> the canary exists to give you bad news early; a slightly deflated score is the price of an alarm system that actually works.</li>
+</ol>
+
+<h2>Your assignment</h2>
+<div class="tally">1. Write the one-sentence acceptance bars (once, before grading).
+2. Grade the baseline run with 0/1/2 and the two-sentence notes.
+3. Keep the raw answers — the notes point back to them.
+4. Next: <a style="color:#ffb473" href="regressions.html">chapter 03 · catch regressions</a>.</div>
+</main>
+
+<footer class="site">
+  <p>This manual is published by <strong>Asdale Dynamics, LLC</strong> — Dylan Asdale is a registered nurse turned AI author; the LLC publishes beginner-friendly AI education, books, guides, and practical tools (local-first, no secrets, no personal data).</p>
+  <p>Education about AI tooling only — not professional, medical, or legal advice. MIT licensed: Copyright (c) 2026 Asdale Dynamics, LLC.</p>
+</footer>
+
+</body>
+</html>
